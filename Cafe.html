@@ -21,8 +21,7 @@
 <div class="hero-section">
   <p>Welcome to Cafe Delights</p>
 </div>
-
-<!-- Modal -->
+  
 <div id="confirmationModal" class="modal">
   <div class="modal-content">
     <p id="modalMessage"></p>
@@ -43,7 +42,6 @@
         Join us and become a part of the Cafe Delights family.
     </p>
   
-    <!-- Image Gallery -->
     <div class="about-images">
       <img src="https://www.restaurantindia.in/awards/2022/delhi/images/award.jpg" alt="Award">
       <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=400&h=250&q=80" alt="Coffee preparation">
@@ -95,7 +93,7 @@
     <input type="text" placeholder="Your Name" required><br>
     <input type="email" placeholder="Your Email" required><br>
     <textarea rows="4" placeholder="Your Message"></textarea><br>
-    <button type="submit">Send Message</button>
+    <button onclick="sendMessage()">Send Message</button>
   </form>
 </section>
 
@@ -184,7 +182,9 @@
       }
     });
   }
-
+  function sendMessage() {
+    alert("Thank you! Your message has been sent.");
+  }
   window.addEventListener("scroll", handleScrollAnimation);
   window.addEventListener("load", handleScrollAnimation);
 </script>
