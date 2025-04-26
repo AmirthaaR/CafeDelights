@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You! | Cafe Delights</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/12/29/a8/vive-l-ete.jpg?w=900&h=500&s=1'); 
+      background-size: cover; 
+      background-position: center;  
+      background-repeat: no-repeat; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    .thankyou-container {
+      background-color: rgba(255, 255, 255, 0.8); /* Transparent white background for readability */
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 500px;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .thankyou-container h1 {
+      color: #4CAF50;
+      font-size: 36px;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .thankyou-container .icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    #orderSummary, #totalAmount {
+      font-size: 20px;
+      color: #444;
+      margin: 15px 0;
+    }
+
+    .home-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #ff6f61;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .home-button:hover {
+      background-color: #e75b4f;
+      transform: translateY(-5px);
+    }
+
+    .home-button:active {
+      transform: translateY(2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="thankyou-container">
+    <div class="icon">☕</div>
+    <h1>Thank You for Your Order!</h1>
+    <p id="orderSummary"></p>
+    <p id="totalAmount"></p>
+    <a href="Cafe.html" class="home-button">Back to Home</a>
+  </div>
+  <script>
+    const order = localStorage.getItem("finalOrder");
+    const total = localStorage.getItem("orderTotal");
+    document.getElementById("orderSummary").textContent = order
+      ? `You ordered: ${order}`
+      : "No items were ordered.";
+    document.getElementById("totalAmount").textContent = total
+      ? `Total: $${parseFloat(total).toFixed(2)}`
+      : "";
+  </script>
+</body>
+</html>

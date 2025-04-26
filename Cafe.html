@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cafe Delights</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <h1>Cafe Delights</h1>
+  <p>Where every cup is crafted with love!</p>
+</header>
+
+<nav>
+  <a href="#about">About Us</a>
+  <a href="#menu">Menu</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<div class="hero-section">
+  <p>Welcome to Cafe Delights</p>
+</div>
+
+<!-- Modal -->
+<div id="confirmationModal" class="modal">
+  <div class="modal-content">
+    <p id="modalMessage"></p>
+    <button onclick="closeModal()">OK</button>
+  </div>
+</div>
+
+<section id="about" class="about-section scroll-fade">
+    <h2>About Us</h2>
+    <p>
+        At <strong>Cafe Delights</strong>, we believe that coffee is more than just a drink—it's a way to bring people together.
+        We take pride in sourcing the finest beans, roasting them to perfection, and serving them in an inviting space where
+        every guest feels at home. Whether you're looking for a quiet corner to work, catching up with friends, or simply
+        indulging in a handcrafted treat, we've got the perfect cup waiting for you.
+    </p>
+    <p>
+        Our mission is to serve joy, one cup at a time. Sustainability, quality, and community are at the heart of what we do.
+        Join us and become a part of the Cafe Delights family.
+    </p>
+  
+    <!-- Image Gallery -->
+    <div class="about-images">
+      <img src="https://www.restaurantindia.in/awards/2022/delhi/images/award.jpg" alt="Award">
+      <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=400&h=250&q=80" alt="Coffee preparation">
+      <img src="https://5.imimg.com/data5/SELLER/Default/2023/11/362390479/PQ/DC/AE/22049222/container-cafe-500x500.png" alt="cafe shop">
+    </div>
+  </section>
+  
+<section id="menu" class="menu-section scroll-fade">
+  <h2>Our Menu</h2>
+  <div class="menu-items">
+    <div class="menu-item">
+      <h3>Espresso</h3>
+      <p>A rich, dark coffee that packs a punch!</p>
+      <p><strong>$3.50</strong></p>
+      <button onclick="addToOrder('Espresso')">Order</button>
+    </div>
+    <div class="menu-item">
+      <h3>Latte</h3>
+      <p>A smooth espresso with steamed milk and a light foam.</p>
+      <p><strong>$4.50</strong></p>
+      <button onclick="addToOrder('Latte')">Order</button>
+    </div>
+    <div class="menu-item">
+      <h3>Croissant</h3>
+      <p>Flaky and buttery, perfect with a coffee!</p>
+      <p><strong>$2.50</strong></p>
+      <button onclick="addToOrder('Croissant')">Order</button>
+    </div>
+    <div class="menu-item">
+      <h3>Chocolate Cake</h3>
+      <p>Decadent chocolate goodness in every bite.</p>
+      <p><strong>$4.00</strong></p>
+      <button onclick="addToOrder('Chocolate Cake')">Order</button>
+    </div>
+  </div>
+
+  <div style="margin-top: 40px;">
+    <h3>Your Order:</h3>
+    <ul id="orderList" style="list-style: none; padding: 0; font-size: 18px;"></ul>
+    <button onclick="clearOrder()" style="margin-top: 15px; padding: 10px 20px; background-color: #777; color: white; border: none; border-radius: 5px; cursor: pointer;">Clear Order</button>
+    <button onclick="placeFinalOrder()" style="margin-left: 10px; margin-top: 15px; padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Place Final Order</button>
+  </div>
+</section>
+
+<section id="contact" class="contact-section scroll-fade">
+  <h2>Contact Us</h2>
+  <p>Have questions or want to give us feedback? Get in touch with us!</p>
+  <form>
+    <input type="text" placeholder="Your Name" required><br>
+    <input type="email" placeholder="Your Email" required><br>
+    <textarea rows="4" placeholder="Your Message"></textarea><br>
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+<footer>
+  <p>&copy; 2025 Cafe Delights. All rights reserved.</p>
+</footer>
+
+<script>
+  const orderList = [];
+  const prices = {
+    "Espresso": 3.50,
+    "Latte": 4.50,
+    "Croissant": 2.50,
+    "Chocolate Cake": 4.00
+  };
+
+  const orderListElement = document.getElementById("orderList");
+
+  function addToOrder(item) {
+    orderList.push(item);
+    updateOrderDisplay();
+    showModal(`${item} added to your order!`);
+  }
+
+  function updateOrderDisplay() {
+    orderListElement.innerHTML = '';
+    let total = 0;
+
+    orderList.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.textContent = `${index + 1}. ${item} - $${prices[item].toFixed(2)}`;
+      orderListElement.appendChild(li);
+      total += prices[item];
+    });
+
+    if (orderList.length > 0) {
+      const totalDisplay = document.createElement('li');
+      totalDisplay.style.marginTop = "15px";
+      totalDisplay.style.fontWeight = "bold";
+      totalDisplay.textContent = `Total: $${total.toFixed(2)}`;
+      orderListElement.appendChild(totalDisplay);
+    }
+  }
+
+  function clearOrder() {
+    orderList.length = 0;
+    updateOrderDisplay();
+  }
+
+  function placeFinalOrder() {
+    const orderSummary = orderList.join(", ");
+    localStorage.setItem("finalOrder", orderSummary);
+    window.location.href = "Thankyou.html";
+  }
+
+  function showModal(message) {
+    document.getElementById("modalMessage").textContent = message;
+    document.getElementById("confirmationModal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("confirmationModal").style.display = "none";
+  }
+
+  const scrollElements = document.querySelectorAll(".scroll-fade");
+
+  function elementInView(el, offset = 100) {
+    const elementTop = el.getBoundingClientRect().top;
+    return elementTop <= (window.innerHeight - offset);
+  }
+
+  function displayScrollElement(el) {
+    el.classList.add("visible");
+  }
+
+  function hideScrollElement(el) {
+    el.classList.remove("visible");
+  }
+
+  function handleScrollAnimation() {
+    scrollElements.forEach((el) => {
+      if (elementInView(el)) {
+        displayScrollElement(el);
+      } else {
+        hideScrollElement(el);
+      }
+    });
+  }
+
+  window.addEventListener("scroll", handleScrollAnimation);
+  window.addEventListener("load", handleScrollAnimation);
+</script>
+</body>
+</html>
